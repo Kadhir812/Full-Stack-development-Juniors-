@@ -1,0 +1,42 @@
+<!-- JavaScript Basics — 12) DOM Events (Open this HTML in a browser) -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>DOM Events</title>
+  <style>
+    body { font-family: system-ui, Arial; padding: 16px; }
+    .log { margin-top: 10px; white-space: pre-wrap; background: #f7f7f7; padding: 8px; }
+    button { margin-right: 8px; }
+  </style>
+</head>
+<body>
+  <h1>Event Handling</h1>
+  <button id="clickBtn">Click</button>
+  <button id="hoverBtn">Hover me</button>
+  <label>
+    <input id="check" type="checkbox" /> Check me
+  </label>
+  <div class="log" id="log"></div>
+
+  <script>
+    const log = (msg) => document.getElementById('log').textContent += msg + "\n";
+
+    document.getElementById('clickBtn').addEventListener('click', () => log('clicked'));
+
+    const hoverBtn = document.getElementById('hoverBtn');
+    hoverBtn.addEventListener('mouseenter', () => log('mouse enter'));
+    hoverBtn.addEventListener('mouseleave', () => log('mouse leave'));
+
+    document.getElementById('check').addEventListener('change', (e) => log('checked: ' + e.target.checked));
+
+    // Event delegation example
+    const list = document.createElement('ul');
+    list.innerHTML = '<li>Item 1</li><li>Item 2</li><li>Item 3</li>';
+    document.body.appendChild(list);
+    list.addEventListener('click', (e) => {
+      if (e.target.tagName === 'LI') log('You clicked ' + e.target.textContent);
+    });
+  </script>
+</body>
+</html>
